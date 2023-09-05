@@ -22,9 +22,9 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   late int taskID;
   IconData fabIcon = Icons.edit;
 
-  late List<Map> tasksNew = [];
-  late List<Map> tasksDone = [];
-  late List<Map> tasksArchive = [];
+  List<Map> tasksNew = [];
+  List<Map> tasksDone = [];
+  List<Map> tasksArchive = [];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
