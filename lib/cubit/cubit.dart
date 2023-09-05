@@ -1,7 +1,7 @@
+import 'package:api_prices/cubit/states.dart';
+import 'package:api_prices/network/dio_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../network/dio_helper.dart';
-import 'states.dart';
 
 class MainCubit extends Cubit<States> {
   MainCubit() : super(InitState());

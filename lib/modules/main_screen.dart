@@ -1,4 +1,4 @@
-import 'package:api_prices/components.dart';
+import 'package:api_prices/classes/components.dart';
 import 'package:api_prices/cubit/cubit.dart';
 import 'package:api_prices/cubit/states.dart';
 import 'package:flutter/material.dart';

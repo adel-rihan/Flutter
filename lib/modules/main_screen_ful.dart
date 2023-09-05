@@ -1,4 +1,4 @@
-import 'package:api_prices/components.dart';
+import 'package:api_prices/classes/components.dart';
 import 'package:api_prices/network/dio_helper.dart';
 import 'package:flutter/material.dart';
 
