@@ -12,8 +12,8 @@ class DioHelper {
     );
   }
 
-  static Future<Response> getData(String url) {
+  static Future<Response> getData(String url) async {
     dio!.options.headers = {'x-access-token': 'goldapi-1km8arljumw7di-io'};
-    return dio!.get(url);
+    return await dio!.get(url);
   }
 }
