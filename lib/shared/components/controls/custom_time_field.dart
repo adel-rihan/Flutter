@@ -7,7 +7,6 @@ class CustomTimeField extends StatefulWidget {
   final String? Function(String?) validator;
   final IconData? prefixIcon;
   final bool isDense;
-  final TimeOfDay? chosenTimeOfDay;
 
   const CustomTimeField({
     Key? key,
@@ -16,7 +15,6 @@ class CustomTimeField extends StatefulWidget {
     required this.validator,
     this.prefixIcon,
     this.isDense = false,
-    this.chosenTimeOfDay,
   }) : super(key: key);
 
   @override
@@ -24,23 +22,36 @@ class CustomTimeField extends StatefulWidget {
 }
 
 class _CustomTimeFieldState extends State<CustomTimeField> {
-  TimeOfDay chosenTimeOfDay = TimeOfDay.now();
+  TimeOfDay chosenTime = TimeOfDay.now();
 
   @override
   void initState() {
     super.initState();
 
-    chosenTimeOfDay = widget.chosenTimeOfDay ?? chosenTimeOfDay;
+    if (widget.controller.text.isNotEmpty) {
+      chosenTime = timeFromString(widget.controller.text);
+    }
+  }
+
+  TimeOfDay timeFromString(String time) {
+    int hh = 0;
+    if (time.endsWith('PM')) hh = 12;
+    time = time.split(' ')[0];
+
+    return TimeOfDay(
+      hour: hh + int.parse(time.split(":")[0]),
+      minute: int.parse(time.split(":")[1]),
+    );
   }
 
   void showPicker(BuildContext context) {
     showTimePicker(
       context: context,
-      initialTime: chosenTimeOfDay,
+      initialTime: chosenTime,
     ).then((value) {
       setState(() {
         if (value != null) {
-          chosenTimeOfDay = value;
+          chosenTime = value;
           widget.controller.text = value.format(context).toString();
         }
       });

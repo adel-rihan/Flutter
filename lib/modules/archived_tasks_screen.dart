@@ -16,8 +16,9 @@ class ArchivedTasksScreen extends StatelessWidget {
 
         return tasksBuilder(
           tasks: cubit.tasksArchive,
-          update: cubit.updateDatabase,
-          delete: cubit.deleteFromDatabase,
+          updateStatus: cubit.updateStatus,
+          delete: cubit.deleteTask,
+          update: cubit.updateTaskClicked,
         );
       },
     );

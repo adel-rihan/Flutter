@@ -8,7 +8,6 @@ class CustomDateField extends StatefulWidget {
   final String? Function(String?) validator;
   final IconData? prefixIcon;
   final bool isDense;
-  final DateTime? chosenDateTime;
 
   const CustomDateField({
     Key? key,
@@ -17,7 +16,6 @@ class CustomDateField extends StatefulWidget {
     required this.validator,
     this.prefixIcon,
     this.isDense = false,
-    this.chosenDateTime,
   }) : super(key: key);
 
   @override
@@ -26,25 +24,28 @@ class CustomDateField extends StatefulWidget {
 
 class _CustomDateFieldState extends State<CustomDateField> {
   DateTime chosenDateTime = DateTime.now();
+  final dateFormat = DateFormat.yMMMd();
 
   @override
   void initState() {
     super.initState();
 
-    chosenDateTime = widget.chosenDateTime ?? chosenDateTime;
+    chosenDateTime = widget.controller.text.isEmpty
+        ? chosenDateTime
+        : dateFormat.parse(widget.controller.text);
   }
 
   void showPicker(BuildContext context) {
     showDatePicker(
       context: context,
       initialDate: chosenDateTime,
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 3650)),
+      firstDate: DateTime(1998, 11, 3),
+      lastDate: DateTime(2098, 11, 3),
     ).then((value) {
       setState(() {
         if (value != null) {
           chosenDateTime = value;
-          widget.controller.text = DateFormat.yMMMd().format(value);
+          widget.controller.text = dateFormat.format(value);
         }
       });
     });

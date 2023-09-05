@@ -16,8 +16,9 @@ class NewTasksScreen extends StatelessWidget {
 
         return tasksBuilder(
           tasks: cubit.tasksNew,
-          update: cubit.updateDatabase,
-          delete: cubit.deleteFromDatabase,
+          updateStatus: cubit.updateStatus,
+          delete: cubit.deleteTask,
+          update: cubit.updateTaskClicked,
         );
       },
     );

@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:tasks_local_database/modules/archived_tasks_screen.dart';
 import 'package:tasks_local_database/modules/done_tasks_screen.dart';
 import 'package:tasks_local_database/modules/new_tasks_screen.dart';
+import 'package:tasks_local_database/shared/components/classes/components.dart';
 import 'package:tasks_local_database/shared/components/classes/dialogs.dart';
 import 'package:tasks_local_database/shared/cubit/states.dart';
 
@@ -17,12 +18,15 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
   late Database db;
   bool isBottomSheetShown = false;
+  bool newTask = true;
+  late int taskID;
   IconData fabIcon = Icons.edit;
 
   late List<Map> tasksNew = [];
   late List<Map> tasksDone = [];
   late List<Map> tasksArchive = [];
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
   TextEditingController titleController = TextEditingController();
@@ -43,6 +47,12 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
   currentScreen() => screens[currentIndex];
 
+  void changeIndex(index) {
+    currentIndex = index;
+
+    emit(ChangeHomeLayoutState());
+  }
+
   void loadLayout(context) async {
     emit(LoadingHomeLayoutState());
 
@@ -58,7 +68,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
                   text:
                       'Error happened while creating the table!\n${error.toString()}'));
         },
-        onOpen: (database) => getDatabase(context, database),
+        onOpen: (database) => getTasks(context, database: database),
       );
     } catch (error) {
       alertDialog(context,
@@ -67,19 +77,22 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     }
   }
 
-  getDatabase(context, Database database) async {
+  getTasks(context, {Database? database}) async {
+    database = database ?? db;
+
     try {
       List<Map> tasks = await database.rawQuery('SELECT * FROM tasks');
 
       var tasksSorted = tasks.map((element) {
         String finalDateAndTime = element['date'] + " " + element['time'];
-        final format = DateFormat('MMM d, yyyy h:m a');
-        DateTime dateTime = format.parse(finalDateAndTime);
+        DateTime dateTime =
+            DateFormat('MMM d, yyyy h:m a').parse(finalDateAndTime);
 
         final newElement = {
           ...element,
           'DateTime': dateTime.toString(),
         };
+
         return newElement;
       }).toList();
 
@@ -96,40 +109,70 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
       emit(ChangeHomeLayoutState());
     } catch (error) {
-      print(error);
       alertDialog(context,
           text:
               'Error happened while opening the database!\n${error.toString()}');
     }
   }
 
-  void changeIndex(index) {
-    currentIndex = index;
+  Future floatingButton(context) async {
+    if (isBottomSheetShown) {
+      newTask ? insertTask(context) : updateTask(context);
+    } else {
+      showBottomSheet(context);
+    }
+  }
+
+  showBottomSheet(context) {
+    scaffoldKey.currentState!
+        .showBottomSheet(
+          elevation: 20.0,
+          (context) => bottomSheet(
+            newTask: newTask,
+            formKey: formKey,
+            titleController: titleController,
+            timeController: timeController,
+            dateController: dateController,
+          ),
+        )
+        .closed
+        .then((value) => bottomSheetStatus(false));
+
+    bottomSheetStatus(true);
+  }
+
+  Future bottomSheetStatus(bool show) async {
+    isBottomSheetShown = show;
+
+    fabIcon = show ? Icons.add : Icons.edit;
+
+    if (!show) {
+      titleController.text = '';
+      dateController.text = '';
+      timeController.text = '';
+
+      newTask = true;
+    }
 
     emit(ChangeHomeLayoutState());
   }
 
-  Future insertToDatabase(context) async {
+  Future insertTask(context) async {
     if (formKey.currentState!.validate()) {
       try {
         await db.transaction((txn) async {
           await txn.rawInsert(
-              'INSERT INTO tasks (title, date, time, status) VALUES(?, ?, ?, ?)',
-              [
-                titleController.text.trim(),
-                dateController.text,
-                timeController.text,
-                'New'
-              ]);
+            'INSERT INTO tasks (title, date, time, status) VALUES(?, ?, ?, ?)',
+            [
+              titleController.text.trim(),
+              dateController.text,
+              timeController.text,
+              'New'
+            ],
+          );
         });
 
-        Navigator.pop(context);
-
-        isBottomSheetShown = false;
-
-        fabIcon = Icons.edit;
-
-        getDatabase(context, db);
+        closeBottomSheet(context);
       } catch (error) {
         alertDialog(context,
             text:
@@ -138,7 +181,48 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     }
   }
 
-  Future updateDatabase(
+  updateTaskClicked(
+    context, {
+    required Map model,
+  }) {
+    titleController.text = model['title'];
+    dateController.text = model['date'];
+    timeController.text = model['time'];
+
+    taskID = model['id'];
+    newTask = false;
+
+    showBottomSheet(context);
+  }
+
+  Future updateTask(context) async {
+    try {
+      await db.rawUpdate(
+        'UPDATE tasks SET title = ?, date = ?, time = ? WHERE id = ?',
+        [
+          titleController.text.trim(),
+          dateController.text,
+          timeController.text,
+          taskID,
+        ],
+      );
+
+      closeBottomSheet(context);
+    } catch (error) {
+      alertDialog(context,
+          text: 'Error happened while updating the task!\n${error.toString()}');
+    }
+  }
+
+  closeBottomSheet(context) {
+    Navigator.pop(context);
+
+    bottomSheetStatus(false);
+
+    getTasks(context);
+  }
+
+  Future updateStatus(
     context, {
     required int status,
     required Map model,
@@ -153,32 +237,24 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
       await db.rawUpdate(
           'UPDATE tasks SET status = ? WHERE id = ?', [statusStr, model['id']]);
 
-      getDatabase(context, db);
+      getTasks(context);
     } catch (error) {
       alertDialog(context,
           text: 'Error happened while updating the task!\n${error.toString()}');
     }
   }
 
-  Future deleteFromDatabase(
+  Future deleteTask(
     context, {
     required Map model,
   }) async {
     try {
       await db.rawUpdate('DELETE FROM tasks WHERE id = ?', [model['id']]);
 
-      getDatabase(context, db);
+      getTasks(context);
     } catch (error) {
       alertDialog(context,
           text: 'Error happened while deleting the task!\n${error.toString()}');
     }
-  }
-
-  Future bottomSheet(bool show) async {
-    isBottomSheetShown = show;
-
-    fabIcon = show ? Icons.add : Icons.edit;
-
-    emit(ChangeHomeLayoutState());
   }
 }
