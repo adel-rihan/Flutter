@@ -80,13 +80,13 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   }
 
   getTasks(context, {Database? database}) async {
-    database = database ?? db;
-
     tasksNew = [];
     tasksDone = [];
     tasksArchive = [];
 
-    emit(ChangeHomeLayoutState());
+    if (database == null) emit(ChangeHomeLayoutState());
+
+    database = database ?? db;
 
     try {
       List<Map> tasks = await database.rawQuery('SELECT * FROM tasks');

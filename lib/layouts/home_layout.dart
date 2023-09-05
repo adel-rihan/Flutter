@@ -23,7 +23,6 @@ class HomeLayout extends StatelessWidget {
               condition: state is! LoadingHomeLayoutState,
               builder: (context) => Scaffold(
                 key: cubit.scaffoldKey,
-                resizeToAvoidBottomInset: false,
                 appBar: AppBar(
                   title: Text(
                     cubit.titles[cubit.currentIndex],
@@ -53,7 +52,6 @@ class HomeLayout extends StatelessWidget {
                 ),
               ),
               fallback: (context) => const Scaffold(
-                resizeToAvoidBottomInset: false,
                 body: Center(child: CircularProgressIndicator()),
               ),
             ),
