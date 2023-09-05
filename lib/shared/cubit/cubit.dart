@@ -61,12 +61,14 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
         'todo.db',
         version: 1,
         onCreate: (Database db, int version) async {
-          await db
-              .execute(
-                  'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)')
-              .onError((error, stackTrace) => alertDialog(context,
-                  text:
-                      'Error happened while creating the table!\n${error.toString()}'));
+          try {
+            await db.execute(
+                'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)');
+          } catch (error) {
+            alertDialog(context,
+                text:
+                    'Error happened while creating the table!\n${error.toString()}');
+          }
         },
         onOpen: (database) => getTasks(context, database: database),
       );
@@ -79,6 +81,12 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
   getTasks(context, {Database? database}) async {
     database = database ?? db;
+
+    tasksNew = [];
+    tasksDone = [];
+    tasksArchive = [];
+
+    emit(ChangeHomeLayoutState());
 
     try {
       List<Map> tasks = await database.rawQuery('SELECT * FROM tasks');
