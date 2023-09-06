@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class DioHelper {
   static Dio? dio;
 
-  static int() {
+  static init() {
     dio = Dio(
       BaseOptions(
         baseUrl: 'https://www.goldapi.io/api/',

@@ -8,8 +8,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = const AppBlocObserver();
-
-  DioHelper.int();
+  DioHelper.init();
 
   runApp(const MyApp());
 }
