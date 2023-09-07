@@ -17,43 +17,40 @@ class HomeLayout extends StatelessWidget {
         builder: (context, state) {
           HomeLayoutCubit cubit = HomeLayoutCubit.get(context);
 
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: ConditionalBuilder(
-              condition: state is! LoadingHomeLayoutState,
-              builder: (context) => Scaffold(
-                key: cubit.scaffoldKey,
-                appBar: AppBar(
-                  title: Text(
-                    cubit.titles[cubit.currentIndex],
-                  ),
-                ),
-                bottomNavigationBar: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  onTap: cubit.changeIndex,
-                  currentIndex: cubit.currentIndex,
-                  selectedItemColor: Colors.black54,
-                  unselectedItemColor: Colors.grey.withOpacity(0.5),
-                  elevation: 15,
-                  items: [
-                    bottomNavItem(label: 'Tasks', icon: Icons.menu),
-                    bottomNavItem(
-                        label: 'Done', icon: Icons.check_circle_outline),
-                    bottomNavItem(
-                        label: 'Archived', icon: Icons.archive_outlined),
-                  ],
-                ),
-                body: SafeArea(child: cubit.currentScreen()),
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    cubit.floatingButton(context);
-                  },
-                  child: Icon(cubit.fabIcon),
+          return ConditionalBuilder(
+            condition: state is! LoadingHomeLayoutState,
+            builder: (context) => Scaffold(
+              key: cubit.scaffoldKey,
+              appBar: AppBar(
+                title: Text(
+                  cubit.titles[cubit.currentIndex],
                 ),
               ),
-              fallback: (context) => const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                onTap: cubit.changeIndex,
+                currentIndex: cubit.currentIndex,
+                selectedItemColor: Colors.black54,
+                unselectedItemColor: Colors.grey.withOpacity(0.5),
+                elevation: 15,
+                items: [
+                  bottomNavItem(label: 'Tasks', icon: Icons.menu),
+                  bottomNavItem(
+                      label: 'Done', icon: Icons.check_circle_outline),
+                  bottomNavItem(
+                      label: 'Archived', icon: Icons.archive_outlined),
+                ],
               ),
+              body: SafeArea(child: cubit.currentScreen()),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  cubit.floatingButton(context);
+                },
+                child: Icon(cubit.fabIcon),
+              ),
+            ),
+            fallback: (context) => const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
             ),
           );
         },
