@@ -20,10 +20,11 @@ class BusinessScreen extends StatelessWidget {
           springAnimationDurationInMilliseconds: 500,
           // backgroundColor: Theme.of(context).colorScheme.primary,
           // color: Colors.transparent,
-          onRefresh: cubit.getBusiness,
+          onRefresh: () => cubit.getBusiness(context),
           child: articlesBuilder(
             state: state,
             articles: cubit.businessArticles,
+            onTap: cubit.openUrl,
           ),
         );
       },

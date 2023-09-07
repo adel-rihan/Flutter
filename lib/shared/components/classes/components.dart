@@ -12,69 +12,75 @@ BottomNavigationBarItem bottomNavItem({
       icon: Icon(icon),
     );
 
-Widget articleItem({
+Widget articleItem(
+  context, {
   required Map model,
+  required Function(BuildContext, Map) onTap,
 }) =>
-    Padding(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 120,
-            height: 120,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: model['urlToImage'] != null
-                  ? CachedNetworkImage(
-                      imageUrl: '${model['urlToImage']}',
-                      imageBuilder: (context, imageProvider) => Image(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                      placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => Image.asset(
+    InkWell(
+      onTap: () =>
+          onTap(context, {'url': model['url'], 'title': model['title']}),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 120,
+              height: 120,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: model['urlToImage'] != null
+                    ? CachedNetworkImage(
+                        imageUrl: '${model['urlToImage']}',
+                        imageBuilder: (context, imageProvider) => Image(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Image.asset(
+                          'assets/images/article_empty.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Image.asset(
                         'assets/images/article_empty.jpg',
                         fit: BoxFit.cover,
                       ),
-                    )
-                  : Image.asset(
-                      'assets/images/article_empty.jpg',
-                      fit: BoxFit.cover,
-                    ),
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: SizedBox(
-              height: 120,
-              child: Column(
-                // mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      '${model['title']}',
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    '${model['publishedAt']}',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 10),
+            Expanded(
+              child: SizedBox(
+                height: 120,
+                child: Column(
+                  // mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '${model['title']}',
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${model['publishedAt']}',
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
 
@@ -118,6 +124,7 @@ Widget emptyArticles() => Center(
 Widget articlesBuilder({
   required dynamic state,
   required List<dynamic> articles,
+  required Function(BuildContext, Map) onTap,
   bool search = false,
 }) =>
     ConditionalBuilder(
@@ -130,7 +137,9 @@ Widget articlesBuilder({
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) => articleItem(
+              context,
               model: articles[index],
+              onTap: onTap,
             ),
             separatorBuilder: (context, index) => articleItemSeparator(),
             itemCount: articles.length,

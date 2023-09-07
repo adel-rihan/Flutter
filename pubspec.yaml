@@ -44,6 +44,7 @@ dependencies:
   line_awesome_flutter: ^2.0.0
   liquid_pull_to_refresh: ^3.0.1
   shared_preferences: ^2.2.1
+  webview_flutter: ^4.2.4
 
 dev_dependencies:
   flutter_test:

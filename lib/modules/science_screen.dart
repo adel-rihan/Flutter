@@ -20,10 +20,11 @@ class ScienceScreen extends StatelessWidget {
           springAnimationDurationInMilliseconds: 500,
           // backgroundColor: Theme.of(context).colorScheme.primary,
           // color: Colors.transparent,
-          onRefresh: cubit.getScience,
+          onRefresh: () => cubit.getScience(context),
           child: articlesBuilder(
             state: state,
             articles: cubit.scienceArticles,
+            onTap: cubit.openUrl,
           ),
         );
       },

@@ -17,7 +17,7 @@ class LoadingHomeLayoutState extends HomeLayoutStates {}
 class ChangeHomeLayoutState extends HomeLayoutStates {}
 
 //
-/// App
+/// Search Page
 abstract class SearchPageStates {}
 
 class InitialSearchPageState extends SearchPageStates {}
@@ -25,3 +25,11 @@ class InitialSearchPageState extends SearchPageStates {}
 class LoadingSearchPageState extends SearchPageStates {}
 
 class ChangeSearchPageState extends SearchPageStates {}
+
+//
+/// WebView Page
+abstract class WebViewPageStates {}
+
+class InitialWebViewPageState extends WebViewPageStates {}
+
+class ChangeWebViewPageState extends WebViewPageStates {}

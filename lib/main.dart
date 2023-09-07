@@ -4,8 +4,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_api/layouts/home_layout.dart';
+import 'package:news_api/modules/search_page.dart';
+import 'package:news_api/modules/webview_page.dart';
 import 'package:news_api/network/local/cache_helper.dart';
 import 'package:news_api/network/remote/dio_helper.dart';
+import 'package:news_api/shared/components/classes/routes.dart';
 import 'package:news_api/shared/cubit/bloc_observer.dart';
 import 'package:news_api/shared/cubit/cubit.dart';
 import 'package:news_api/shared/cubit/states.dart';
@@ -51,7 +54,13 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: cubit.darkMode ? ThemeMode.dark : ThemeMode.light,
-            home: const HomeLayout(),
+            // home: const HomeLayout(),
+            initialRoute: Routes.home,
+            routes: {
+              Routes.home: (context) => const HomeLayout(),
+              Routes.search: (context) => const SearchPage(),
+              Routes.webview: (context) => const WebViewPage(),
+            },
           );
         },
       ),

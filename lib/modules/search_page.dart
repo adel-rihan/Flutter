@@ -28,18 +28,17 @@ class SearchPage extends StatelessWidget {
                 textType: TextInputType.text,
                 maxLength: 25,
                 suffixIcon: IconButton(
-                  onPressed: cubit.getSearch,
+                  onPressed: () => cubit.getSearch(context),
                   icon: const Icon(Icons.search),
                 ),
-                onChange: (value) {
-                  cubit.getSearch();
-                },
+                onChange: (value) => cubit.getSearch(context),
               ),
             ),
             body: SafeArea(
               child: articlesBuilder(
                 state: state,
                 articles: cubit.searchArticles,
+                onTap: cubit.openUrl,
                 search: true,
               ),
             ),

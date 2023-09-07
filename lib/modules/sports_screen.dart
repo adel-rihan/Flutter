@@ -20,10 +20,11 @@ class SportsScreen extends StatelessWidget {
           springAnimationDurationInMilliseconds: 500,
           // backgroundColor: Theme.of(context).colorScheme.primary,
           // color: Colors.transparent,
-          onRefresh: cubit.getSports,
+          onRefresh: () => cubit.getSports(context),
           child: articlesBuilder(
             state: state,
             articles: cubit.sportsArticles,
+            onTap: cubit.openUrl,
           ),
         );
       },
