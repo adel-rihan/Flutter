@@ -11,7 +11,7 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeLayoutCubit()..loadLayout(context),
+      create: (context) => HomeLayoutCubit()..getBusiness(context),
       child: BlocConsumer<HomeLayoutCubit, HomeLayoutStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -39,7 +39,7 @@ class HomeLayout extends StatelessWidget {
                 ],
               ),
               bottomNavigationBar: BottomNavigationBar(
-                onTap: cubit.changeIndex,
+                onTap: (value) => cubit.changeIndex(context, value),
                 currentIndex: cubit.currentIndex,
                 items: [
                   bottomNavItem(label: 'Business', icon: Icons.business),

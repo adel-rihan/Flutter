@@ -43,6 +43,9 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   List<dynamic> sportsArticles = [];
   List<dynamic> scienceArticles = [];
 
+  bool sportsDone = false;
+  bool scienceDone = false;
+
   int currentIndex = 0;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -62,10 +65,13 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
   currentScreen() => screens[currentIndex];
 
-  void changeIndex(index) {
+  void changeIndex(context, index) {
     currentIndex = index;
 
     emit(ChangeHomeLayoutState());
+
+    if (index == 1 && !sportsDone) getSports(context);
+    if (index == 2 && !scienceDone) getScience(context);
   }
 
   void loadLayout(context) async {
@@ -99,6 +105,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   Future getSports(context, {bool refresh = true}) async {
     if (refresh) emit(LoadingHomeLayoutState());
 
+    sportsDone = true;
     sportsArticles = [];
 
     await DioHelper.getData(
@@ -117,6 +124,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   Future getScience(context, {bool refresh = true}) async {
     if (refresh) emit(LoadingHomeLayoutState());
 
+    scienceDone = true;
     scienceArticles = [];
 
     await DioHelper.getData(
