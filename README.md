@@ -2,4 +2,4 @@
 
 A new Flutter project.
 
-[Deployment Link](https://adel-rihan.github.io/bmi_calculator/#/)
+[Deployment Link](https://adel-rihan.github.io/bmi_calculator/)
