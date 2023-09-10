@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_api/modules/business_screen.dart';
@@ -8,6 +9,7 @@ import 'package:news_api/network/remote/dio_helper.dart';
 import 'package:news_api/shared/components/classes/dialogs.dart';
 import 'package:news_api/shared/components/classes/routes.dart';
 import 'package:news_api/shared/cubit/states.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 //
@@ -142,7 +144,19 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
   void search(context) => Routes.pushSearch(context);
 
-  void openUrl(context, Map args) => Routes.pushWebView(context, args);
+  void openUrl(context, Map args) async {
+    if (kIsWeb) {
+      final Uri url = Uri.parse(args['url']);
+      var urllaunchable = await canLaunchUrl(url);
+      if (urllaunchable) {
+        await launchUrl(url);
+      } else {
+        alertDialog(context, text: 'URL can\'t be launched.\n$url');
+      }
+    } else {
+      Routes.pushWebView(context, args);
+    }
+  }
 
   void darkModeChange() {
     appCubit!.changeTheme();
@@ -179,7 +193,19 @@ class SearchPageCubit extends Cubit<SearchPageStates> {
     emit(ChangeSearchPageState());
   }
 
-  void openUrl(context, Map args) => Routes.pushWebView(context, args);
+  void openUrl(context, Map args) async {
+    if (kIsWeb) {
+      final Uri url = Uri.parse(args['url']);
+      var urllaunchable = await canLaunchUrl(url);
+      if (urllaunchable) {
+        await launchUrl(url);
+      } else {
+        alertDialog(context, text: 'URL can\'t be launched.\n$url');
+      }
+    } else {
+      Routes.pushWebView(context, args);
+    }
+  }
 }
 
 //
