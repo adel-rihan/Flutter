@@ -1,9 +1,7 @@
 import 'dart:math';
-
 import 'package:bmi_calculator/shared/components/constants.dart';
 import 'package:bmi_calculator/shared/components/routes.dart';
 import 'package:bmi_calculator/shared/cubit/states.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //
