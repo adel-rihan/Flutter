@@ -26,11 +26,6 @@ void main() async {
   }
   darkMode = await CacheHelper.getBool('Dark Mode');
 
-  // FlutterError.onError = (details) {
-  //   FlutterError.presentError(details);
-  //   if (kReleaseMode) exit(1);
-  // };
-
   runApp(const MyApp());
 }
 
