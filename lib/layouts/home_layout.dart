@@ -18,7 +18,6 @@ class HomeLayout extends StatelessWidget {
           HomeLayoutCubit cubit = HomeLayoutCubit.get(context);
 
           return Scaffold(
-            key: cubit.scaffoldKey,
             appBar: AppBar(
               title: Text(
                 cubit.titles[cubit.currentIndex],

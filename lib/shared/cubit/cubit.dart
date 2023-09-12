@@ -50,9 +50,6 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
   int currentIndex = 0;
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final formKey = GlobalKey<FormState>();
-
   final List<String> titles = const [
     'Business News',
     'Sports News',
@@ -96,9 +93,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     ).then((value) {
       businessArticles = value.data['articles'];
     }).catchError((error) {
-      alertDialog(context,
-          text:
-              'Error happened while getting the business news!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while getting the business news!\n${error.toString()}');
     });
 
     if (refresh) emit(ChangeHomeLayoutState());
@@ -115,9 +110,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     ).then((value) {
       sportsArticles = value.data['articles'];
     }).catchError((error) {
-      alertDialog(context,
-          text:
-              'Error happened while getting the sports news!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while getting the sports news!\n${error.toString()}');
     });
 
     if (refresh) emit(ChangeHomeLayoutState());
@@ -134,9 +127,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     ).then((value) {
       scienceArticles = value.data['articles'];
     }).catchError((error) {
-      alertDialog(context,
-          text:
-              'Error happened while getting the science news!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while getting the science news!\n${error.toString()}');
     });
 
     if (refresh) emit(ChangeHomeLayoutState());
@@ -185,9 +176,7 @@ class SearchPageCubit extends Cubit<SearchPageStates> {
     ).then((value) {
       searchArticles = value.data['articles'];
     }).catchError((error) {
-      alertDialog(context,
-          text:
-              'Error happened while getting the search news!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while getting the search news!\n${error.toString()}');
     });
 
     emit(ChangeSearchPageState());
