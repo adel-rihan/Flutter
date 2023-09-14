@@ -5,8 +5,7 @@ class Routes {
   static String search = '/search';
   static String webview = '/webview';
 
-  static navTo(context, String route, {Map? args}) =>
-      Navigator.pushNamed(context, route, arguments: args);
+  static navTo(context, String route, {Map? args}) => Navigator.pushNamed(context, route, arguments: args);
 
   static pushSearch(context) => navTo(context, search);
 

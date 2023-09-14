@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_api/main.dart';
 import 'package:news_api/modules/business_screen.dart';
 import 'package:news_api/modules/science_screen.dart';
 import 'package:news_api/modules/sports_screen.dart';
@@ -15,9 +16,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 //
 /// App
 class AppCubit extends Cubit<AppStates> {
-  late bool darkMode;
-
-  AppCubit(this.darkMode) : super(InitialAppState()) {
+  AppCubit() : super(InitialAppState()) {
     appCubit = this;
   }
 

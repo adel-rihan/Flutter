@@ -37,18 +37,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(darkMode),
+      create: (context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
+          // AppCubit cubit = AppCubit.get(context);
 
           return MaterialApp(
             title: 'News API',
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: cubit.darkMode ? ThemeMode.dark : ThemeMode.light,
+            themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
             // home: const HomeLayout(),
             initialRoute: Routes.home,
             routes: {

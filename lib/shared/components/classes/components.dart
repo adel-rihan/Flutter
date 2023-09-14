@@ -18,8 +18,7 @@ Widget articleItem(
   required Function(BuildContext, Map) onTap,
 }) =>
     InkWell(
-      onTap: () =>
-          onTap(context, {'url': model['url'], 'title': model['title']}),
+      onTap: () => onTap(context, {'url': model['url'], 'title': model['title']}),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Row(
@@ -36,8 +35,7 @@ Widget articleItem(
                           image: imageProvider,
                           fit: BoxFit.cover,
                         ),
-                        placeholder: (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => Image.asset(
                           'assets/images/article_empty.jpg',
                           fit: BoxFit.cover,
@@ -95,8 +93,7 @@ Widget articleItemSeparator() => Padding(
 
 Widget emptyArticles() => Center(
       child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) =>
-            SingleChildScrollView(
+        builder: (BuildContext context, BoxConstraints constraints) => SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: SizedBox(
             height: constraints.maxHeight,
@@ -128,9 +125,7 @@ Widget articlesBuilder({
   bool search = false,
 }) =>
     ConditionalBuilder(
-      condition: search
-          ? state is! LoadingSearchPageState
-          : state is! LoadingHomeLayoutState,
+      condition: search ? state is! LoadingSearchPageState : state is! LoadingHomeLayoutState,
       builder: (context) => ConditionalBuilder(
         condition: articles.isNotEmpty,
         builder: (context) => Scrollbar(
