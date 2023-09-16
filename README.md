@@ -2,33 +2,33 @@
 
 This project is using bloc, dio, conditional builder, reusable componenets, auth validator, bottom navigation bar, shared preferences, theme data, api, page view and a lot more.
 
-![01](screenshots/01.png | width=100)
-![02](screenshots/02.png | width=100)
-![03](screenshots/03.png | width=100)
-![04](screenshots/04.png | width=100)
-![05](screenshots/05.png | width=100)
-![06](screenshots/06.png | width=100)
-![07](screenshots/07.png | width=100)
-![08](screenshots/08.png | width=100)
-![09](screenshots/09.png | width=100)
-![10](screenshots/10.png | width=100)
-![11](screenshots/11.png | width=100)
-![12](screenshots/12.png | width=100)
-![13](screenshots/13.png | width=100)
-![14](screenshots/14.png | width=100)
-![15](screenshots/15.png | width=100)
-![16](screenshots/16.png | width=100)
-![17](screenshots/17.png | width=100)
-![18](screenshots/18.png | width=100)
-![19](screenshots/19.png | width=100)
-![20](screenshots/20.png | width=100)
-![21](screenshots/21.png | width=100)
-![22](screenshots/22.png | width=100)
-![23](screenshots/23.png | width=100)
-![24](screenshots/24.png | width=100)
-![25](screenshots/25.png | width=100)
-![26](screenshots/26.png | width=100)
-![27](screenshots/27.png | width=100)
-![28](screenshots/28.png | width=100)
-![29](screenshots/29.png | width=100)
-![30](screenshots/30.png | width=100)
+<img src="screenshots/01.png" width="100" height="100">
+<img src="screenshots/02.png" width="100" height="100">
+<img src="screenshots/03.png" width="100" height="100">
+<img src="screenshots/04.png" width="100" height="100">
+<img src="screenshots/05.png" width="100" height="100">
+<img src="screenshots/06.png" width="100" height="100">
+<img src="screenshots/07.png" width="100" height="100">
+<img src="screenshots/08.png" width="100" height="100">
+<img src="screenshots/09.png" width="100" height="100">
+<img src="screenshots/10.png" width="100" height="100">
+<img src="screenshots/11.png" width="100" height="100">
+<img src="screenshots/12.png" width="100" height="100">
+<img src="screenshots/13.png" width="100" height="100">
+<img src="screenshots/14.png" width="100" height="100">
+<img src="screenshots/15.png" width="100" height="100">
+<img src="screenshots/16.png" width="100" height="100">
+<img src="screenshots/17.png" width="100" height="100">
+<img src="screenshots/18.png" width="100" height="100">
+<img src="screenshots/19.png" width="100" height="100">
+<img src="screenshots/20.png" width="100" height="100">
+<img src="screenshots/21.png" width="100" height="100">
+<img src="screenshots/22.png" width="100" height="100">
+<img src="screenshots/23.png" width="100" height="100">
+<img src="screenshots/24.png" width="100" height="100">
+<img src="screenshots/25.png" width="100" height="100">
+<img src="screenshots/26.png" width="100" height="100">
+<img src="screenshots/27.png" width="100" height="100">
+<img src="screenshots/28.png" width="100" height="100">
+<img src="screenshots/29.png" width="100" height="100">
+<img src="screenshots/30.png" width="100" height="100">
