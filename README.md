@@ -1,13 +1,11 @@
 [Salla Shop](../bmi_calculator)
 
-Salla Shop
-Tasks Local Database
-News API
-BMI Calculator
-Gold and Silver Prices API
-Color Screen
+[Tasks Local Database](../tasks_local_database)
 
+[News API](../news_api)
 
-https://github.com/adel-rihan/flutter/tree/bmi_calculator
+[BMI Calculator](../bmi_calculator)
 
-https://github.com/adel-rihan/flutter/tree/main
+[Gold and Silver Prices API](../gold_and_silver_prices_api)
+
+[Color Screen](../color_screen)
