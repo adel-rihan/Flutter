@@ -1,4 +1,4 @@
-[Salla Shop](../bmi_calculator)
+[Salla Shop](../salla_shop)
 
 [Tasks Local Database](../tasks_local_database)
 
