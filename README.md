@@ -1,4 +1,4 @@
-[Skrew Calculator](https://adel-rihan.github.io/skrew_calculator/)
+[Skrew Calculator](https://adel-rihan.github.io/skrew_calculator/#/)
 
 [Salla Shop](../salla_shop)
 
