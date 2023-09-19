@@ -1,3 +1,5 @@
+[Skrew Calculator]([../salla_shop](https://adel-rihan.github.io/skrew_calculator/))
+
 [Salla Shop](../salla_shop)
 
 [Tasks Local Database](../tasks_local_database)
