@@ -1,4 +1,8 @@
-[Skrew Calculator](https://adel-rihan.github.io/skrew_calculator/#/)
+## Skrew Calculator
+
+[Deployment Link](https://adel-rihan.github.io/skrew_calculator/#/)
+
+## Other Apps
 
 [Salla Shop](../salla_shop)
 
