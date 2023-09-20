@@ -1,6 +1,6 @@
-## Skrew Calculator
+## Skrew Scoresheet
 
-[Deployment Link](https://adel-rihan.github.io/skrew_calculator/#/)
+[Deployment Link](https://adel-rihan.github.io/skrew_scoresheet/#/)
 
 ## Other Apps
 
