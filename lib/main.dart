@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop/models/login_model.dart';
 import 'package:shop/modules/start/splash_page.dart';
@@ -24,6 +25,8 @@ void main() async {
   } else {
     darkMode = await CacheHelper.get('Dark Mode');
   }
+
+  SystemChrome.setSystemUIOverlayStyle(darkMode ? darkSystemOverlayStyle : lightSystemOverlayStyle);
 
   if (!await CacheHelper.check('On Boarding')) CacheHelper.set('On Boarding', false);
   if (!await CacheHelper.check('Logged')) CacheHelper.set('Logged', false);
