@@ -1,8 +1,4 @@
-## Skrew Scoresheet
-
-[Deployment Link](https://adel-rihan.github.io/skrew_scoresheet/#/)
-
-## Other Apps
+[Skrew Scoresheet](../skrew_scoresheet)
 
 [Salla Shop](../salla_shop)
 
