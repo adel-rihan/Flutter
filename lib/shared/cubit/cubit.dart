@@ -62,20 +62,16 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
         version: 1,
         onCreate: (Database db, int version) async {
           try {
-            await db.execute(
-                'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)');
+            await db
+                .execute('CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)');
           } catch (error) {
-            alertDialog(context,
-                text:
-                    'Error happened while creating the table!\n${error.toString()}');
+            alertDialog(context, text: 'Error happened while creating the table!\n${error.toString()}');
           }
         },
         onOpen: (database) => getTasks(context, database: database),
       );
     } catch (error) {
-      alertDialog(context,
-          text:
-              'Error happened while opening the database!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while opening the database!\n${error.toString()}');
     }
   }
 
@@ -93,8 +89,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
       var tasksSorted = tasks.map((element) {
         String finalDateAndTime = element['date'] + " " + element['time'];
-        DateTime dateTime =
-            DateFormat('MMM d, yyyy h:m a').parse(finalDateAndTime);
+        DateTime dateTime = DateFormat('MMM d, yyyy h:m a').parse(finalDateAndTime);
 
         final newElement = {
           ...element,
@@ -104,22 +99,15 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
         return newElement;
       }).toList();
 
-      tasksSorted.sort((a, b) => DateTime.parse(a["DateTime"])
-          .compareTo(DateTime.parse(b["DateTime"])));
+      tasksSorted.sort((a, b) => DateTime.parse(a["DateTime"]).compareTo(DateTime.parse(b["DateTime"])));
 
-      tasksNew =
-          tasksSorted.where((element) => element['status'] == 'New').toList();
-      tasksDone =
-          tasksSorted.where((element) => element['status'] == 'Done').toList();
-      tasksArchive = tasksSorted
-          .where((element) => element['status'] == 'Archive')
-          .toList();
+      tasksNew = tasksSorted.where((element) => element['status'] == 'New').toList();
+      tasksDone = tasksSorted.where((element) => element['status'] == 'Done').toList();
+      tasksArchive = tasksSorted.where((element) => element['status'] == 'Archive').toList();
 
       emit(ChangeHomeLayoutState());
     } catch (error) {
-      alertDialog(context,
-          text:
-              'Error happened while opening the database!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while opening the database!\n${error.toString()}');
     }
   }
 
@@ -171,20 +159,13 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
         await db.transaction((txn) async {
           await txn.rawInsert(
             'INSERT INTO tasks (title, date, time, status) VALUES(?, ?, ?, ?)',
-            [
-              titleController.text.trim(),
-              dateController.text,
-              timeController.text,
-              'New'
-            ],
+            [titleController.text.trim(), dateController.text, timeController.text, 'New'],
           );
         });
 
         closeBottomSheet(context);
       } catch (error) {
-        alertDialog(context,
-            text:
-                'Error happened while getting the task!\n${error.toString()}');
+        alertDialog(context, text: 'Error happened while getting the task!\n${error.toString()}');
       }
     }
   }
@@ -217,8 +198,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
       closeBottomSheet(context);
     } catch (error) {
-      alertDialog(context,
-          text: 'Error happened while updating the task!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while updating the task!\n${error.toString()}');
     }
   }
 
@@ -242,13 +222,11 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
               ? 'Done'
               : 'Archive';
 
-      await db.rawUpdate(
-          'UPDATE tasks SET status = ? WHERE id = ?', [statusStr, model['id']]);
+      await db.rawUpdate('UPDATE tasks SET status = ? WHERE id = ?', [statusStr, model['id']]);
 
       getTasks(context);
     } catch (error) {
-      alertDialog(context,
-          text: 'Error happened while updating the task!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while updating the task!\n${error.toString()}');
     }
   }
 
@@ -261,8 +239,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
       getTasks(context);
     } catch (error) {
-      alertDialog(context,
-          text: 'Error happened while deleting the task!\n${error.toString()}');
+      alertDialog(context, text: 'Error happened while deleting the task!\n${error.toString()}');
     }
   }
 }

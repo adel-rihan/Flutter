@@ -35,10 +35,8 @@ class HomeLayout extends StatelessWidget {
                 elevation: 15,
                 items: [
                   bottomNavItem(label: 'Tasks', icon: Icons.menu),
-                  bottomNavItem(
-                      label: 'Done', icon: Icons.check_circle_outline),
-                  bottomNavItem(
-                      label: 'Archived', icon: Icons.archive_outlined),
+                  bottomNavItem(label: 'Done', icon: Icons.check_circle_outline),
+                  bottomNavItem(label: 'Archived', icon: Icons.archive_outlined),
                 ],
               ),
               body: SafeArea(child: cubit.currentScreen()),
