@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_api/main.dart';
 import 'package:news_api/modules/business_screen.dart';
@@ -10,6 +11,7 @@ import 'package:news_api/network/remote/dio_helper.dart';
 import 'package:news_api/shared/components/classes/dialogs.dart';
 import 'package:news_api/shared/components/classes/routes.dart';
 import 'package:news_api/shared/cubit/states.dart';
+import 'package:news_api/styles/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -26,6 +28,8 @@ class AppCubit extends Cubit<AppStates> {
     CacheHelper.setBool('Dark Mode', !darkMode);
 
     darkMode = !darkMode;
+
+    SystemChrome.setSystemUIOverlayStyle(darkMode ? darkSystemOverlayStyle : lightSystemOverlayStyle);
 
     emit(ChangeAppState());
   }

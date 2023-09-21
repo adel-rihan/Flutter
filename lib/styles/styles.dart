@@ -16,21 +16,17 @@ final lightTheme = ThemeData(
     onPrimary: Colors.white,
     onSecondary: Colors.white,
   ),
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
     centerTitle: false,
     titleSpacing: 20,
     backgroundColor: Colors.white,
-    iconTheme: IconThemeData(color: Colors.black),
-    titleTextStyle: TextStyle(
+    iconTheme: const IconThemeData(color: Colors.black),
+    titleTextStyle: const TextStyle(
       fontSize: 20,
       color: Colors.black,
       fontWeight: FontWeight.bold,
     ),
-    systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.dark,
-    ),
+    systemOverlayStyle: lightSystemOverlayStyle,
     // elevation: 10,
   ),
   textTheme: const TextTheme(
@@ -70,21 +66,17 @@ final darkTheme = ThemeData(
     onPrimary: Colors.black,
     onSecondary: Colors.black,
   ),
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
     centerTitle: false,
     titleSpacing: 20,
-    backgroundColor: Color.fromRGBO(24, 25, 26, 1),
-    iconTheme: IconThemeData(color: Colors.white),
-    titleTextStyle: TextStyle(
+    backgroundColor: const Color.fromRGBO(24, 25, 26, 1),
+    iconTheme: const IconThemeData(color: Colors.white),
+    titleTextStyle: const TextStyle(
       fontSize: 20,
       color: Colors.white,
       fontWeight: FontWeight.bold,
     ),
-    systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Color.fromRGBO(24, 25, 26, 1),
-      statusBarBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.light,
-    ),
+    systemOverlayStyle: darkSystemOverlayStyle,
     // elevation: 10,
   ),
   textTheme: const TextTheme(
@@ -107,4 +99,16 @@ final darkTheme = ThemeData(
     // backgroundColor: const Color.fromRGBO(24, 25, 26, 1),
     elevation: 15,
   ),
+);
+
+SystemUiOverlayStyle lightSystemOverlayStyle = const SystemUiOverlayStyle(
+  statusBarColor: Colors.white,
+  statusBarBrightness: Brightness.light, // ios
+  statusBarIconBrightness: Brightness.dark, // Android
+);
+
+SystemUiOverlayStyle darkSystemOverlayStyle = const SystemUiOverlayStyle(
+  statusBarColor: Color.fromRGBO(24, 25, 26, 1),
+  statusBarBrightness: Brightness.dark, // ios
+  statusBarIconBrightness: Brightness.light, // Android
 );

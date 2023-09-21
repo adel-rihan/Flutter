@@ -2,6 +2,7 @@
 // import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_api/layouts/home_layout.dart';
 import 'package:news_api/modules/search_page.dart';
@@ -25,6 +26,8 @@ void main() async {
     CacheHelper.setBool('Dark Mode', false);
   }
   darkMode = await CacheHelper.getBool('Dark Mode');
+
+  SystemChrome.setSystemUIOverlayStyle(darkMode ? darkSystemOverlayStyle : lightSystemOverlayStyle);
 
   runApp(const MyApp());
 }
